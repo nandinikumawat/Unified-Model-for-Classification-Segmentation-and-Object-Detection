@@ -1,65 +1,99 @@
-# VitisHLS_LeNet
+# Object Detection, Segmentation and Classification on FPGA (LeNet-5 and BNN)
 
-## 1. Project Structure
+## Overview
+This project aims to implement Convolutional Neural Networks (CNNs) for object detection and classification on the PYNQ Z2 FPGA board. Specifically, it utilizes LeNet-5 for handwritten and machine-printed character detection and Binary Neural Networks (BNNs) for object detection.
 
-`LeNet` folder contains a Vitis HLS project. `Lenet/test` folder stores testbench files and corresponding test data. `LeNet.ipynb` is a python jupyter notebook file where you can find model definition, MNIST dataset, testbench data generation and so on.
+## Project Structure
+The project is structured as follows:
+- `vitis-hls/`: Contains Vitis HLS project files.
+- `vivado/`: Contains Vivado project files.
+- `jupyter-notebooks/`: Jupyter notebooks for interfacing with the FPGA.
+- `python-scripts/`: Python scripts for data processing and analysis.
 
-```c
-.
-|-- LICENSE
-|-- LeNet
-|   |-- 0
-|   |-- hls.app
-|   |-- release_sln
-|   |-- src                 // source files
-|   |   |-- LeNet.cpp
-|   |   |-- avgpool_layer2.cpp
-|   |   |-- avgpool_layer4.cpp
-|   |   |-- common.cpp
-|   |   |-- common.h
-|   |   |-- conv2d_layer1.cpp
-|   |   |-- conv2d_layer3.cpp
-|   |   `-- dense_layer5.cpp
-|   |-- test                // testbench files
-|   |   |-- LeNet_tb.cpp
-|   |   |-- LeNet_tb_data.txt
-|   |   |-- LeNet_weights.txt
-|   |   |-- avgpool_layer2_output.txt
-|   |   |-- avgpool_layer2_tb.cpp
-|   |   |-- avgpool_layer4_output.txt
-|   |   |-- avgpool_layer4_tb.cpp
-|   |   |-- common.h
-|   |   |-- conv2d_layer1_output.txt
-|   |   |-- conv2d_layer1_tb.cpp
-|   |   |-- conv2d_layer3_output.txt
-|   |   |-- conv2d_layer3_tb.cpp
-|   |   |-- dense_layer5_output.txt
-|   |   |-- dense_layer5_tb.cpp
-|   |   |-- main_tb.cpp
-|   |   |-- mnist_test_0_100.txt
-|   |   `-- mnist_test_0_1000.txt
-|   `-- vitis_hls.log
-|-- LeNet.ipynb          // LeNet model, test data generation and so on
-`-- README.md
-```
+## Vitis HLS Flow
+### 1. Design Entry
+In the `vitis-hls/` directory, you can find the high-level language design (C or C++) for LeNet-5 and BNN.
 
-## 2. Suggestions
+### 2. Verification
+Use the provided testbenches in `vitis-hls/verification/` to ensure the correctness of the design.
 
-1. It's recommended to change the `LENET_TEST_CASES` macro in `Lenet/test/common.h` to a much smaller value (< 10) before doing Cosimulation in Vitis HLS.
-2. This design didn't consider any interface issues.
+### 3. High-Level Synthesis
+Run Vitis HLS on the high-level code to convert it into Register Transfer Level (RTL) implementation.
 
-## 3. C Simulation Results
+### 4. Optimization
+Vitis HLS performs optimizations, including pipelining, loop unrolling, and memory partitioning, to enhance performance.
 
-![C Simulation Results](https://s1.328888.xyz/2022/05/27/thah2.png)
+### 5. Verification
+Verify the optimized RTL code to ensure it meets design requirements.
 
-## 4. C Synthesis Results
+### 6. Export
+Export the RTL code and constraints to the Vivado tool for synthesis and implementation.
 
-![C Synthesis Results](https://s1.328888.xyz/2022/05/27/thKPT.png)
+## Vivado Flow
+### 1. Design Entry
+Navigate to `vivado/` to find Vivado project files. Create or import design files, specify top-level modules, and set parameters.
 
-## 5. Reference
+### 2. Block Design
+Open the IP catalog to add necessary IP, processing system, and other pre-defined modules.
 
-<a id="ref_1">[[1]王小雪. 基于FPGA的卷积神经网络手写数字识别系统的实现[D].北京理工大学,2016. ](https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CMFD&dbname=CMFD201801&filename=1018812356.nh) </a >
+### 3. Run Automation
+Run Vivado automation for design convenience.
 
-<a id="ref_2">[[2]Zhang A, Lipton Z C, Li M, et al. Dive into deep learning[J]. arXiv preprint arXiv:2106.11342, 2021.](https://zh.d2l.ai/index.html) </a >
+### 4. Validation
+Validate the block design, check addresses using the address editor, and create an HDL wrapper for a single module.
 
-<a id="ref_3">[[3]HLS学习笔记——实现卷积层的加速计算](https://blog.csdn.net/qq_36334929/article/details/108627123) </a >
+### 5. Synthesis
+Synthesize the design to generate a netlist that describes the behavior of the design in terms of logic gates and flip-flops.
+
+### 6. Simulation
+Simulate the design using a testbench to verify functionality before implementation.
+
+### 7. Design Analysis
+Analyze the design for timing violations, resource usage, and power consumption.
+
+### 8. Implementation
+Map the design to the target FPGA, generate routing and placement information.
+
+### 9. Bitstream Generation
+Generate a bitstream file containing the configuration information for the target FPGA device.
+
+### 10. Hardware Validation
+Load the bitstream onto the target device, test the design to ensure correct behavior, and measure performance.
+
+## Methodology
+### LeNet-5 Implementation
+- Developed LeNet IP using Vitis HLS.
+- Integrated with Zynq processing system in Vivado.
+- Used 32-bit General Purpose and High-Performance Axis Slave interfaces.
+
+### BNN for Object Detection
+- Utilized Binary Neural Networks for efficient object detection.
+- Trained and deployed BNN on the PYNQ board.
+
+## Results
+### LeNet-5 Output
+- Presented power consumption data.
+- Output accuracy and time taken for 32-bit General Purpose and High-Performance Axis Slave interfaces.
+
+### BNN Model Output
+- Object detection and classification results.
+- Displayed images with identified objects.
+
+## Conclusion and Future Scope
+### Conclusion
+- Successfully implemented CNN and BNN on FPGA.
+- Improved efficiency and accuracy of object detection.
+
+### Future Scope
+- Further optimization using pruning and quantization.
+- Explore real-time applications and deployment in resource-constrained devices.
+
+## How to Use
+- Instructions on setting up the environment and running the project.
+
+## License
+- Specify the license under which the project is distributed.
+
+## Contributors
+- List of contributors and how to contribute.
+
