@@ -1,17 +1,9 @@
-+# FPGA Object Detection, Classification, and Segmentation
+## FPGA Object Detection, Classification, and Segmentation
 
 ## Introduction
 This repository presents the implementation of object detection, classification, and segmentation on an FPGA board, specifically the PYNQ Z2 board. The project explores various existing architectures for these tasks and demonstrates the implementation of LeNet-5 for handwritten and machine-printed character detection using Jupyter Notebook and Python programming language.
 
 ![image](https://github.com/nandinikumawat/Unified-Model-for-Classification-Segmentation-and-Object-Detection/assets/63352345/a167c3b4-5aef-4846-b2ab-a80216d04a39)
-
-
-## Project Structure
-- **/src**: Source code for FPGA implementation
-- **/docs**: Documentation and project-related documents
-- **/results**: Outcome and output files
-- **/notebooks**: Jupyter notebooks for development
-- **/scripts**: Helper scripts for automation
 
 ## LeNet-5 Implementation
 The LeNet-5 architecture is developed in Xilinx Vitis HLS and integrated with the Zynq processing system using Xilinx Vivado. The block design involves the use of both general-purpose axis slave interfaces and high-performance axis slave interfaces.
