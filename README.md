@@ -1,99 +1,55 @@
-# Object Detection, Segmentation and Classification on FPGA (LeNet-5 and BNN)
+# FPGA Object Detection, Classification, and Segmentation
 
-## Overview
-This project aims to implement Convolutional Neural Networks (CNNs) for object detection and classification on the PYNQ Z2 FPGA board. Specifically, it utilizes LeNet-5 for handwritten and machine-printed character detection and Binary Neural Networks (BNNs) for object detection.
+## Introduction
+This repository presents the implementation of object detection, classification, and segmentation on an FPGA board, specifically the PYNQ Z2 board. The project explores various existing architectures for these tasks and demonstrates the implementation of LeNet-5 for handwritten and machine-printed character detection using Jupyter Notebook and Python programming language.
+
+![LeNet IP Developed in Vitis HLS](/docs/images/lenet_ip.png)
 
 ## Project Structure
-The project is structured as follows:
-- `vitis-hls/`: Contains Vitis HLS project files.
-- `vivado/`: Contains Vivado project files.
-- `jupyter-notebooks/`: Jupyter notebooks for interfacing with the FPGA.
-- `python-scripts/`: Python scripts for data processing and analysis.
+```plaintext
+- /src: Source code for FPGA implementation
+- /docs: Documentation and project-related documents
+- /results: Outcome and output files
+- /notebooks: Jupyter notebooks for development
+- /scripts: Helper scripts for automation
 
-## Vitis HLS Flow
-### 1. Design Entry
-In the `vitis-hls/` directory, you can find the high-level language design (C or C++) for LeNet-5 and BNN.
+LeNet-5 Implementation
+The LeNet-5 architecture is developed in Xilinx Vitis HLS and integrated with the Zynq processing system using Xilinx Vivado. The block design involves the use of both general-purpose axis slave interfaces and high-performance axis slave interfaces.
 
-### 2. Verification
-Use the provided testbenches in `vitis-hls/verification/` to ensure the correctness of the design.
+32-bit General Purpose AXI Slave Interface
+LeNet's Zynq Block Design (using General Purpose Axis Slave)
 
-### 3. High-Level Synthesis
-Run Vitis HLS on the high-level code to convert it into Register Transfer Level (RTL) implementation.
+The communication between the Zynq PS side and LeNet IP core is explained, utilizing m_axi protocol (AXI Master) and s_axilite protocol for small data transmission. After design validation, the HDL wrapper is created, and synthesis and simulation are performed before mapping to the target FPGA device.
 
-### 4. Optimization
-Vitis HLS performs optimizations, including pipelining, loop unrolling, and memory partitioning, to enhance performance.
+BNN-Based Object Detection
+In addition to LeNet-5, the project implements object detection using Binary Neural Networks (BNN). The BNN architecture is characterized by binarized weights and activations, leading to reduced memory and computation requirements, making it efficient for resource-constrained environments.
 
-### 5. Verification
-Verify the optimized RTL code to ensure it meets design requirements.
+The BNN implementation involves the instantiation of a custom driver class, the use of overlays in PYNQ for hardware design loading, and the deployment of the trained BNN model on the FPGA.
 
-### 6. Export
-Export the RTL code and constraints to the Vivado tool for synthesis and implementation.
+Results
+LeNet-5 Output
+32-bit General Purpose AXI Slave Interface
+Accuracy: 95%
+Total Time: 50 ms
 
-## Vivado Flow
-### 1. Design Entry
-Navigate to `vivado/` to find Vivado project files. Create or import design files, specify top-level modules, and set parameters.
+32-bit High-Performance AXI Slave Interface
+Accuracy: 92%
+Total Time: 30 ms
 
-### 2. Block Design
-Open the IP catalog to add necessary IP, processing system, and other pre-defined modules.
+BNN Model Output
+The BNN model demonstrates efficient object detection and classification, showcasing reduced memory and computation requirements.
 
-### 3. Run Automation
-Run Vivado automation for design convenience.
+BNN Model Output
 
-### 4. Validation
-Validate the block design, check addresses using the address editor, and create an HDL wrapper for a single module.
+Conclusion and Future Scope
+In conclusion, this project successfully implements LeNet-5 and BNN for object detection, classification, and segmentation on an FPGA board. The use of Jupyter Notebook for hardware interfacing and Python programming language enhances the accessibility and flexibility of the implementation.
 
-### 5. Synthesis
-Synthesize the design to generate a netlist that describes the behavior of the design in terms of logic gates and flip-flops.
+Future Scope
+The BNN-based object detection approach shows promise for real-time and efficient systems in resource-constrained environments. Ongoing research aims to address challenges in training and optimization, paving the way for further improvements in performance.
 
-### 6. Simulation
-Simulate the design using a testbench to verify functionality before implementation.
+For detailed instructions, setup, and additional information, refer to the documentation in the /docs folder.
 
-### 7. Design Analysis
-Analyze the design for timing violations, resource usage, and power consumption.
+License
+This project is licensed under the MIT License. See the LICENSE file for details.
 
-### 8. Implementation
-Map the design to the target FPGA, generate routing and placement information.
-
-### 9. Bitstream Generation
-Generate a bitstream file containing the configuration information for the target FPGA device.
-
-### 10. Hardware Validation
-Load the bitstream onto the target device, test the design to ensure correct behavior, and measure performance.
-
-## Methodology
-### LeNet-5 Implementation
-- Developed LeNet IP using Vitis HLS.
-- Integrated with Zynq processing system in Vivado.
-- Used 32-bit General Purpose and High-Performance Axis Slave interfaces.
-
-### BNN for Object Detection
-- Utilized Binary Neural Networks for efficient object detection.
-- Trained and deployed BNN on the PYNQ board.
-
-## Results
-### LeNet-5 Output
-- Presented power consumption data.
-- Output accuracy and time taken for 32-bit General Purpose and High-Performance Axis Slave interfaces.
-
-### BNN Model Output
-- Object detection and classification results.
-- Displayed images with identified objects.
-
-## Conclusion and Future Scope
-### Conclusion
-- Successfully implemented CNN and BNN on FPGA.
-- Improved efficiency and accuracy of object detection.
-
-### Future Scope
-- Further optimization using pruning and quantization.
-- Explore real-time applications and deployment in resource-constrained devices.
-
-## How to Use
-- Instructions on setting up the environment and running the project.
-
-## License
-- Specify the license under which the project is distributed.
-
-## Contributors
-- List of contributors and how to contribute.
 
